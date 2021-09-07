@@ -21,7 +21,7 @@ pingfederate-admin:
     SERVER_PROFILE_PATH: server-profile/pingfederate
     PF_LOG_LEVEL: DEBUG
     PF_HSM_MODE: BCFIPS
-    PF_BC_FIPS_APPROVED_ONLY: "true"
+    #PF_BC_FIPS_APPROVED_ONLY: "true"
 
 pingfederate-engine:
   enabled: true
@@ -30,4 +30,4 @@ pingfederate-engine:
     SERVER_PROFILE_PATH: server-profile/pingfederate
     PF_LOG_LEVEL: DEBUG
     PF_HSM_MODE: BCFIPS
-    PF_BC_FIPS_APPROVED_ONLY: "true"
+    #PF_BC_FIPS_APPROVED_ONLY: "true"
