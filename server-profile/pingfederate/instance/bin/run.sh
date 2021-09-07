@@ -52,7 +52,7 @@ pf_console_util="${PF_BIN}/pf-consoleutils.jar"
 pf_crypto_luna="${PF_SERVER_LIB}/pf-crypto-luna.jar"
 pf_fips="${SERVER_ROOT_DIR}/lib/bc-fips-1.0.2.jar"
 
-PF_BOOT_CLASSPATH="${PF_BOOT_CLASSPATH}${PF_BOOT_CLASSPATH:+:}${pf_console_util}:${xmlbeans}:${pf_xml}"
+PF_BOOT_CLASSPATH="${PF_BOOT_CLASSPATH}${PF_BOOT_CLASSPATH:+:}${pf_console_util}:${xmlbeans}:${pf_xml}:${pf_crypto_luna}:${pf_fips}"
 
 PF_CLASSPATH="${PF_CLASSPATH}${PF_CLASSPATH:+:}${PF_BOOT_CLASSPATH}"
 
@@ -84,6 +84,7 @@ exec "${JAVA_HOME}"/bin/java ${JAVA_OPTS} ${JVM_OPTS} \
     -Dlog4j2.DiscardThreshold=INFO \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:-OmitStackTraceInFastThrow \
+    -Dcom.ncipher.provider.announcemode=on \
     -XX:HeapDumpPath="${PF_HOME_ESC}/log" \
     -XX:ErrorFile="${PF_HOME_ESC}/log/java_error%p.log" \
     -Dlog4j.configurationFile="${PF_HOME_ESC}/server/default/conf/log4j2.xml" \
