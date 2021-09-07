@@ -191,8 +191,8 @@
 
     <New id="secondarySSLContextFactory" class="com.pingidentity.appserver.jetty.server.connector.ssl.RuntimeSslContextFactory">
         <Set name="renegotiationAllowed">true</Set>
-        <Set name="needClientAuth">false</Set>
-        <Set name="wantClientAuth">true</Set>
+        <Set name="needClientAuth">true</Set>
+        <Set name="wantClientAuth">false</Set>
         <Set name="protocol">TLS</Set>
         <Set name="IncludeProtocols">
             <Call name="getEnabledProtocols"/>
