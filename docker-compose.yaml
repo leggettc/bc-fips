@@ -1,6 +1,5 @@
-version: "2.4"
+version: "2.3"
 # This server profile used as basis for ping-devop docker-launch
-
 #-------------------------------------------------------------------------------------
 #- Ping Identity PingFederate getting started demo
 #-
@@ -15,33 +14,27 @@ version: "2.4"
 #-    Username: administrator
 #-    Password: 2FederateM0re
 #-------------------------------------------------------------------------------------
-
 services:
   pingfederate:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    image: docker.io/pingidentity/pingfederate:edge
+    #image: docker.corp.pingidentity.com:5300/pingfederate:10.3.0-rhel7_7.9-rl11-x86_64-edge
     environment:
-      - PF_HSM_MODE=BCFIPS
+      - SERVER_PROFILE_URL=https://github.com/leggettc/bc-fips
+      - SERVER_PROFILE_PATH=server-profile/pingfederate
+      - PF_ENGINE_PRIVATE_PORT_HTTPS=9031
+      - PF_ENGINE_PUBLIC_PORT_HTTPS=9031
+      - PF_SECONDARY_HTTPS_PORT=9032
       - PF_LOG_LEVEL=DEBUG
-      #- SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      #- SERVER_PROFILE_PATH=getting-started/pingfederate 
+      - PF_HSM_MODE=BCFIPS
+      - PF_HSM_HYBRID=false
+      - PF_BC_FIPS_APPROVED_ONLY=false
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
       - "9031:9031"
       - "9999:9999"
+      - "9032:9032"
     networks:
       - pingnet
-    volumes:
-      - ${HOME}/projects/devops/bc-fips/server-profile/pingfederate/instance:/opt/in/instance
-      - ${HOME}/projects/devops/bc-fips/server-profile/java/security/java.security:/opt/java/conf/security/java.security
-      - ${HOME}/projects/devops/bc-fips/server-profile/java/security/java.security:/opt/java/conf/security/openjsse.security
-    #  - /Users/cleggett/projects/devops/bc-fips/volumes/java/out:/opt/java:ro
-    #  - pingfederate-out:/opt/out
-    #  - /Users/cleggett/projects/devops/pingidentity-server-profiles/getting-started/pingfederate:/opt/in
-
 networks:
   pingnet:
-
-volumes:
-  pingfederate-in:
-#  pingfederate-in:
