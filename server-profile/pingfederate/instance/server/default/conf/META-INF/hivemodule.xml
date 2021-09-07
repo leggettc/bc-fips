@@ -57,7 +57,7 @@
                      com.pingidentity.crypto.BCFIPSJCEManager      : Use this service-point element if you are using the Bouncy Castle FIPS provider to store certs
              <construct class="com.pingidentity.crypto.SunJCEManager"/>
 	    -->
-            <construct class="com.pingidentity.crypto.SunJCEManager"/>
+            <construct class="com.pingidentity.crypto.BCFIPSJCEManager"/>
          </invoke-factory>
      </service-point>
 
@@ -72,7 +72,7 @@
                      com.pingidentity.crypto.BCFIPSCertificateServiceImpl      : Use this service-point element if you are using the Bouncy Castle FIPS provider to store certs
              <construct class="com.pingidentity.crypto.CertificateServiceImpl"/>
 	     -->
-	     <construct class="com.pingidentity.crypto.CertificateServiceImpl"/>
+	     <construct class="com.pingidentity.crypto.BCFIPSCertificateServiceImpl"/>
          </invoke-factory>
      </service-point>
 
