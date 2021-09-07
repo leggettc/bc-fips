@@ -97,7 +97,6 @@ exec "${JAVA_HOME}"/bin/java ${JAVA_OPTS} ${JVM_OPTS} \
     -Dpf.java="${JAVA}" \
     -Dpf.java.opts="-Drun.properties=${run_props}" \
     -Dpf.classpath="${PF_CLASSPATH}" \
-    -Djavax.net.debug=all \
     -Djdk.tls.ephemeralDHKeySize=2048 \
     -classpath "${PF_CLASSPATH}" \
     org.pingidentity.RunPF "${@}"

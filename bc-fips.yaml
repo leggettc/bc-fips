@@ -56,7 +56,7 @@ pingfederate-admin:
 
 
 pingfederate-engine:
-  enabled: false
+  enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/leggettc/bc-fips.git
     SERVER_PROFILE_PATH: server-profile/pingfederate
