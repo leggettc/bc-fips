@@ -97,6 +97,6 @@ exec "${JAVA_HOME}"/bin/java ${JAVA_OPTS} ${JVM_OPTS} \
     -Dpf.java="${JAVA}" \
     -Dpf.java.opts="-Drun.properties=${run_props}" \
     -Dpf.classpath="${PF_CLASSPATH}" \
-    -Djavax.net.debug=ssl,handshake \
+    -Djavax.net.debug=all \
     -classpath "${PF_CLASSPATH}" \
     org.pingidentity.RunPF "${@}"
