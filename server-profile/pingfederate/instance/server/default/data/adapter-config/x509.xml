@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urn:AdapterConfiguration authnCtxClassRef="" isInheritAttributeSettings="false" isInheritAttributeMapping="false" maskOgnlValues="false" uniqueUserKeyField="pf_none" isInheritExtendedContractAttributes="false" name="x509" xmlns:urn="urn:sourceid.org:saml2:adapter:conf">
     <urn:Fields>
-        <urn:Field name="Client Auth Port">9032</urn:Field>
-        <urn:Field name="Client Auth Hostname"/>
+        <urn:Field name="Client Auth Port">443</urn:Field>
+        <urn:Field name="Client Auth Hostname">pingfederate-tlsauth-bc-fips.ping-devops.com</urn:Field>
         <urn:Field name="Parse Client Cert Subject and Issuer DNs">true</urn:Field>
         <urn:Field name="Match Issuer DN in Client X.509 certificate">false</urn:Field>
         <urn:Field name="Return Success On SLO">true</urn:Field>
@@ -19,13 +19,18 @@
     <urn:Tables>
         <urn:Table name="Constrain Acceptable Root Issuers"/>
     </urn:Tables>
-    <urn:ExtendedContractAttributes/>
+    <urn:ExtendedContractAttributes>
+        <urn:AttributeName>RFC822Name</urn:AttributeName>
+        <urn:AttributeName>userPrincipalName</urn:AttributeName>
+    </urn:ExtendedContractAttributes>
     <urn:UniqueKeyField>SubjectDN</urn:UniqueKeyField>
     <urn:AttributeMapping>
         <urn1:AttributeMap Name="IssuerDN" Type="Adapter" Value="IssuerDN" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
         <urn1:AttributeMap Name="SerialNumber" Type="Adapter" Value="SerialNumber" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
+        <urn1:AttributeMap Name="RFC822Name" Type="Adapter" Value="RFC822Name" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
         <urn1:AttributeMap Name="SubjectDN" Type="Adapter" Value="SubjectDN" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
         <urn1:AttributeMap Name="email" Type="Adapter" Value="email" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
+        <urn1:AttributeMap Name="userPrincipalName" Type="Adapter" Value="userPrincipalName" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
         <urn1:AttributeMap Name="ClientCertificateChain" Type="Adapter" Value="ClientCertificateChain" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
         <urn1:TokenAuthorizationIssuanceCriteria xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
     </urn:AttributeMapping>

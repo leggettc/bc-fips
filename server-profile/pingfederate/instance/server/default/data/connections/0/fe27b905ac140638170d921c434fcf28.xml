@@ -7,6 +7,7 @@
                 <urn:EncryptionPolicy EncryptionAlgorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc" KeyTransportAlgorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p" EncryptAssertion="false" EncryptSubjectNameID="false" SLOEncryptSubjectNameID="false"/>
                 <urn:DecryptionPolicy AssertionEncrypted="false" SubjectNameIDEncrypted="false" AttributeEncrypted="false" SLOSubjectNameIDEncrypted="false"/>
             </urn:Encryption>
+            <urn:ConnectionTemplateProperties/>
             <urn:MetadataUrlId xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
             <urn:enableAutoMetadataUpdate>false</urn:enableAutoMetadataUpdate>
             <urn:alwaysSignArtifactResponse>false</urn:alwaysSignArtifactResponse>
@@ -19,13 +20,16 @@
     </md:Extensions>
     <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" AuthnRequestsSigned="false" WantAssertionsSigned="false" SignResponseAsRequired="true">
         <md:Extensions>
-            <urn:RoleExtension ArtifactTimeoutSeconds="60" LastModified="2021-09-07T19:25:17.380Z">
+            <urn:RoleExtension ArtifactTimeoutSeconds="60" LastModified="2021-09-09T17:50:44.301Z">
                 <urn:IncomingBindings Artifact="false" POST="true" Redirect="true" SOAP="false"/>
                 <urn:EnabledProfiles IDPInitiatedSSO="true" IDPInitiatedSLO="false" SPInitiatedSSO="true" SPInitiatedSLO="false"/>
                 <urn:SP AssertionValidityAfterMinutes="5" AssertionValidityBeforeMinutes="5" ConnectionTargetType="Standard" EnableCDCDuringSSO="false">
                     <urn:AdapterToAssertionMapping AbortIfNotFoundInAnyDataSources="false" RestrictVirtualServerIds="false" AdapterInstanceId="x509">
                         <urn:DefaultAttributeMapping>
                             <urn:AttributeMap Name="SAML_SUBJECT" Type="Adapter" Value="SubjectDN"/>
+                            <urn:AttributeMap Name="SubjectDN" Type="Adapter" Value="SubjectDN"/>
+                            <urn:AttributeMap Name="email" Type="Adapter" Value="RFC822Name"/>
+                            <urn:AttributeMap Name="userPrincipalName" Type="Adapter" Value="userPrincipalName"/>
                             <urn:TokenAuthorizationIssuanceCriteria/>
                         </urn:DefaultAttributeMapping>
                     </urn:AdapterToAssertionMapping>
@@ -35,6 +39,12 @@
         </md:Extensions>
         <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
         <md:AssertionConsumerService index="0" Location="https://httpbin.org/anything" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" isDefault="true"/>
+        <md:AttributeConsumingService index="0">
+            <md:ServiceName xml:lang="en">AttributeContract</md:ServiceName>
+            <md:RequestedAttribute Name="SubjectDN" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"/>
+            <md:RequestedAttribute Name="userPrincipalName" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"/>
+            <md:RequestedAttribute Name="email" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"/>
+        </md:AttributeConsumingService>
     </md:SPSSODescriptor>
     <md:RoleDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" xsi:type="urn:PFAvailableCertsRoleDescriptorType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
     <md:ContactPerson contactType="administrative"/>
