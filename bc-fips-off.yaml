@@ -43,7 +43,7 @@ pingfederate-admin:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/leggettc/bc-fips.git
-    SERVER_PROFILE_PATH: server-profile/pingfederate
+    SERVER_PROFILE_PATH: server-profile/pingfederate2
     PF_ENGINE_PRIVATE_PORT_SEC_HTTPS: "9032"
     PF_COOKIE_DOMAIN: ".ping-devops.com"
     PF_CONSOLE_AUTHENTICATION: "NATIVE"
@@ -59,7 +59,7 @@ pingfederate-engine:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/leggettc/bc-fips.git
-    SERVER_PROFILE_PATH: server-profile/pingfederate
+    SERVER_PROFILE_PATH: server-profile/pingfederate2
     PF_ENGINE_PRIVATE_PORT_HTTPS: "9031"
     PF_ENGINE_PRIVATE_PORT_SEC_HTTPS: "9032"
     PF_COOKIE_DOMAIN: ".ping-devops.com"
