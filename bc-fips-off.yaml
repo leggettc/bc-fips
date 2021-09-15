@@ -64,7 +64,8 @@ pingfederate-engine:
     PF_ENGINE_PRIVATE_PORT_SEC_HTTPS: "9032"
     PF_COOKIE_DOMAIN: ".ping-devops.com"
     #PF_HSM_MODE: BCFIPS
-    #PF_BC_FIPS_APPROVED_ONLY: "true"    
+    #PF_BC_FIPS_APPROVED_ONLY: "true"  
+    PING_DEBUG: "true"  
   services:
     mtls:
       servicePort: 9032
