@@ -27,10 +27,11 @@ global:
   ingress:
     addReleaseNameToHost: append
     enabled: true
-    defaultDomain: "ping-devops.com"
+    defaultDomain: "ping-local.com"
     annotations:
-      kubernetes.io/ingress.class: "nginx-public"
+      kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"  
 
 ############################################################
 # Ping DevOps Service Customizations
@@ -43,28 +44,50 @@ pingfederate-admin:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/leggettc/bc-fips.git
-    SERVER_PROFILE_PATH: server-profile/pingfederate
+    SERVER_PROFILE_PATH: server-profile/pingfederate3
+    SERVER_PROFILE_VERSION: "1.0"
     PF_ENGINE_PRIVATE_PORT_SEC_HTTPS: "9032"
-    PF_COOKIE_DOMAIN: ".ping-devops.com"
+    PF_COOKIE_DOMAIN: ".ping-local.com"
     PF_CONSOLE_AUTHENTICATION: "NATIVE"
     PF_ADMIN_API_AUTHENTICATION: NATIVE
     PF_HSM_MODE: BCFIPS
+    PF_HSM_HYBRID: "true"
     PF_BC_FIPS_APPROVED_ONLY: "true"
     PING_DEBUG: "true"
     #VERBOSE: "true"
-    
-
+  secretVolumes:
+    pingfederate-license:
+      items:
+        pingfederate.lic: /opt/in/instance/server/default/conf/pingfederate.lic    
+  workload:
+    type: StatefulSet
+    statefulSet:
+      persistentvolume:
+        enabled: true
+        volumes:
+          out-dir:
+            ## NOTE THIS PVC DEFINITION ##
+            mountPath: /opt/out/instance/server/default/data
+            persistentVolumeClaim:
+              accessModes:
+              - ReadWriteOnce
+              storageClassName:
+              resources:
+                requests:
+                  storage: 8Gi    
 
 pingfederate-engine:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/leggettc/bc-fips.git
-    SERVER_PROFILE_PATH: server-profile/pingfederate
+    SERVER_PROFILE_PATH: server-profile/pingfederate3
     PF_ENGINE_PRIVATE_PORT_HTTPS: "9031"
     PF_ENGINE_PRIVATE_PORT_SEC_HTTPS: "9032"
-    PF_COOKIE_DOMAIN: ".ping-devops.com"
+    PF_COOKIE_DOMAIN: ".ping-local.com"
     PF_HSM_MODE: BCFIPS
-    PF_BC_FIPS_APPROVED_ONLY: "true"    
+    PF_HSM_HYBRID: "true"
+    PF_BC_FIPS_APPROVED_ONLY: "true"  
+    PING_DEBUG: "true"  
   services:
     mtls:
       servicePort: 9032
@@ -73,17 +96,23 @@ pingfederate-engine:
       dataService: true  
   ingress:
     annotations:
-      kubernetes.io/ingress.class: nginx-public-passthrough
+      kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/service-upstream: "true"
       nginx.ingress.kubernetes.io/ssl-passthrough: "true"  
     hosts:
       - host: pingfederate-tlsauth._defaultDomain_
         paths:
         - path: /
+          pathType: Prefix
           backend:
             serviceName: mtls
       - host: pingfederate-engine._defaultDomain_
         paths:
         - path: /
+          pathType: Prefix
           backend:
             serviceName: https
+  secretVolumes:
+    pingfederate-license:
+      items:
+        pingfederate.lic: /opt/in/instance/server/default/conf/pingfederate.lic
